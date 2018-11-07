@@ -6,6 +6,7 @@ const program = require('commander');
 program
   .option('-p, --profile <profile>', 'Name of the profile to target')
   .action(({ profile }) => {
+    if (!profile) throw new Error('missing --profile');
     const vars = getRegionEnvVars(profile);
     const varStrings = Object.entries(vars).map(v => `export ${v.join('=')}`);
     console.log(varStrings.join('\n'));
